@@ -57,6 +57,14 @@ textarea:focus, input:focus, select:focus {
   color: #0E5AE5 !important;
   opacity: 1 !important;
 }
+.errorMessage {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+  display: none;
+  color: red;
+}
+
 
 *[placeholder] {
   color: #0E5AE5 !important;

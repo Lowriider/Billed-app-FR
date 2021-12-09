@@ -17,22 +17,38 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    const filePath = e.target.value.split(/\\/g)
-    const fileName = filePath[filePath.length-1]
-    this.firestore
-      .storage
-      .ref(`justificatifs/${fileName}`)
-      .put(file)
-      .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(url => {
-        this.fileUrl = url
-        this.fileName = fileName
-      })
+    const acceptedFileExtension = /(png|jpg|jpeg|pdf|svg)/g;
+    const fileExtension = file.name.split('.').pop();
+
+    if(fileExtension.toLowerCase().match(acceptedFileExtension)) {
+
+      $('.errorMessage').hide();
+      const filePath = e.target.value.split(/\\/g)
+      const fileName = filePath[filePath.length-1]
+      this.handleUploadFile(fileName, file);
+    }
+    else {
+      $('.errorMessage').show();
+      this.document.querySelector(`input[data-testid='file']`).value = null;
+    }
+  }
+  handleUploadFile = (fileName, file) => {
+    if(this.firestore) {
+      this.firestore.storage
+          .ref(`justificatifs/${fileName}`)
+          .put(file)
+          .then(snapshot => snapshot.ref.getDownloadURL())
+          .then(url => {
+            this.fileUrl = url
+            this.fileName = fileName
+          })
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
+
     const bill = {
       email,
       type: e.target.querySelector(`select[data-testid="expense-type"]`).value,

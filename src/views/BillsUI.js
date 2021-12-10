@@ -5,18 +5,25 @@ import LoadingPage from "./LoadingPage.js"
 import Actions from './Actions.js'
 
 const row = (bill) => {
-  return `
-    <tr>
-      <td>${bill.type}</td>
-      <td>${bill.name}</td>
-      <td>${bill.date}</td>
-      <td>${bill.amount} €</td>
-      <td>${bill.status}</td>
-      <td>
-        ${Actions(bill.fileUrl)}
-      </td>
-    </tr>
-    `;
+  let fileName = `${bill.fileName}`;
+  const acceptedFileExtension = /(png|jpg|jpeg|pdf|svg)/g;
+  const fileExtension = fileName.split('.').pop().toLowerCase();
+
+    if(fileExtension.toLowerCase().match(acceptedFileExtension) && fileName != null) {
+      return `
+        <tr>
+          <td>${bill.type}</td>
+          <td>${bill.name}</td>
+          <td>${bill.date}</td>
+          <td>${bill.amount} €</td>
+          <td>${bill.status}</td>
+          <td>
+            ${Actions(bill.fileUrl, fileExtension)}
+          </td>
+        </tr>
+        `;
+    }
+
   }
 
 const rows = (data) => {

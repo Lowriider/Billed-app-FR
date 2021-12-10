@@ -118,6 +118,10 @@ export default class {
     if (typeof $('#modaleFileAdmin1').modal === 'function')
       $('#modaleFileAdmin1').modal('show');
   }
+  handleClickIconDownload = () => {
+    const billUrl = $('#icon-download-d').attr("data-bill-url")
+    window.location.href = billUrl;
+  }
 
   handleEditTicket(e, bill, bills) {
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0;
@@ -146,6 +150,7 @@ export default class {
         height: '120vh'
       });
     }
+    $('#icon-download-d').click(this.handleClickIconDownload);
     $('#icon-eye-d').click(this.handleClickIconEye);
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill));
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill));

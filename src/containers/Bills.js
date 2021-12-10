@@ -13,6 +13,10 @@ export default class {
     if (iconEye) iconEye.forEach(icon => {
       icon.addEventListener('click', (e) => this.handleClickIconEye(icon))
     })
+    const downloadIcon = document.querySelectorAll(`div[data-testid="icon-download"]`)
+    if (downloadIcon) downloadIcon.forEach(icon => {
+      icon.addEventListener('click', (e) => this.handleClickIconDownload(icon))
+    })
     new Logout({ document, localStorage, onNavigate })
   }
 
@@ -26,6 +30,10 @@ export default class {
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
     $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`)
     $('#modaleFile').modal('show')
+  }
+  handleClickIconDownload = (icon) => {
+    const billUrl = icon.getAttribute("data-bill-url")
+    window.location.href = billUrl;
   }
 
   // not need to cover this function by tests

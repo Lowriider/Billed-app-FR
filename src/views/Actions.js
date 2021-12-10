@@ -14,7 +14,7 @@ export default (billUrl, fileExtension) => {
   else {
     return (
       `<div class="icon-actions">
-        <div id="eye" data-testid="icon-eye" data-bill-url=${billUrl}>
+        <div id="download" data-testid="icon-download" data-bill-url=${billUrl}>
         ${downloadBlueIcon}
         </div>
       </div>`

@@ -23,7 +23,6 @@ const row = (bill) => {
         </tr>
         `;
     }
-
   }
 
 const rows = (data) => {

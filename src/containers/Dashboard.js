@@ -13,7 +13,6 @@ export const filteredBills = (data, status) => {
   return (data && data.length) ?
     data.filter(bill => {
       let selectCondition
-
       // in jest environment
       if (typeof jest !== 'undefined') {
         selectCondition = (bill.status === status);
@@ -35,10 +34,12 @@ export const card = (bill) => {
   const lastName = firstAndLastNames.includes('.') ?
     firstAndLastNames.split('.')[1] :
     firstAndLastNames;
-    if(bill.date === undefined || bill.date === "") {
-      console.log("no date found")
+
+    if(bill.date === undefined || bill.date === "" || bill.fileName === undefined || bill.fileName === null || bill.fileName === "") {
+      bill.date = "aucune date";
+      bill.fileName = "pas de fichier à afficher";
+
     }
-    else {
       return `
         <div class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${bill.id}'>
           <div class='bill-card-name-container'>
@@ -56,7 +57,7 @@ export const card = (bill) => {
           </div>
         </div>
       `;
-    }
+  
 }
 
 export const cards = (bills) => {
@@ -64,6 +65,7 @@ export const cards = (bills) => {
     bills.map((bill) => card(bill)).join('') :
     '';
 }
+
 
 export const getStatus = (index) => {
   switch (index) {
@@ -119,6 +121,9 @@ export default class {
       $('#modaleFileAdmin1').modal('show');
   }
   handleClickIconDownload = () => {
+    
+  
+    console.log('hello');
     const billUrl = $('#icon-download-d').attr("data-bill-url")
     window.location.href = billUrl;
   }

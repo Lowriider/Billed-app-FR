@@ -1,7 +1,7 @@
 import eyeBlueIcon from "../assets/svg/eye_blue.js"
 import downloadBlueIcon from "../assets/svg/download_blue.js"
 
-export default (billUrl, fileExtension) => {
+export default (billUrl,filename, fileExtension) => {
   if(fileExtension != "pdf") {
     return (
       `<div class="icon-actions">
@@ -14,9 +14,9 @@ export default (billUrl, fileExtension) => {
   else {
     return (
       `<div class="icon-actions">
-        <div id="download" data-testid="icon-download" data-bill-url=${billUrl}>
+        <a href="/" id="download" data-testid="icon-download" download="${filename}" data-bill-url="${billUrl}">
         ${downloadBlueIcon}
-        </div>
+        </a>
       </div>`
     )
   }
